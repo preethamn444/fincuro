@@ -1,0 +1,209 @@
+openapi: 3.0.1
+info:
+  title: Execuetive Management
+  description: APIs for Execuetive Management
+  version: 1.0.0
+paths:
+  /execuetiveManagement:
+    post:
+      tags:
+        - Execuetive Management
+      summary:  Create a New Execuetive Management
+      description: Create a New Execuetive Management
+      operationId: createExecuetiveManagement
+      requestBody:
+          $ref: '#/components/requestBodies/createExecuetiveManagementRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/createExecuetiveManagementResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  
+  /execuetiveManagement/corporateId:
+    get:
+      tags:
+        - Execuetive Management
+      summary:  Fetch an Execuetive Management
+      description: Fetch an Execuetive Management
+      operationId: fetchExecuetiveManagement
+      parameters:
+        - $ref: '#/components/parameters/corporateId'
+      responses:
+        '200':
+          $ref: '#/components/responses/fetchExecuetiveManagementResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  
+  /execuetiveManagement/{execuetiveManagementId}:
+    delete:
+      tags:
+        - Execuetive Management
+      summary:  delete an Execuetive Management
+      description: delete an Execuetive Management
+      operationId: deleteExecuetiveManagement
+      parameters:
+        - $ref: '#/components/parameters/execuetiveManagementId'
+      responses:
+        '200':
+          $ref: '#/components/responses/deleteExecueteManagement'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+components:
+  schemas:
+    createExecuetiveManagementRequest:
+      type: object
+      properties:
+        individualId: 
+          type: string
+          format: string
+        corporateId:
+          type: string
+          format: string
+        entityStatus:
+          type: integer
+          format: number
+        jobTitle:
+          type: string
+          format: string
+    createExecuetiveManagementResponse:
+      type: object
+      properties:
+        executiveManagementid:
+          type: string
+          format: string
+    fetchExecuetiveManagementResponse:
+      type: object
+      properties:
+        individualId: 
+          type: string
+          format: string
+        corporateId:
+          type: string
+          format: string
+        entityStatus:
+          type: integer
+          format: number
+        jobTitle:
+          type: string
+          format: string
+        executiveManagementid:
+          type: string
+          format: string
+        
+    HTTPError:
+      type: object
+      properties:
+        status_code:
+          type: string
+          format: string
+        status:
+          type: string
+          format: string
+        message:
+          type: string
+          format: string
+    
+  parameters:
+    corporateId:
+      name: corporateId
+      in: query
+      required: true
+      schema:
+        type: string
+    execuetiveManagementId:
+      name: execuetiveManagementId
+      in: path
+      required: true
+      schema:
+        type: string
+  requestBodies:
+    createExecuetiveManagementRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/createExecuetiveManagementRequest'
+  responses:
+    fetchExecuetiveManagementResponse:
+        description: fetchExecuetiveManagement
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/fetchExecuetiveManagementResponse' 
+    createExecuetiveManagementResponse:
+        description: Execuetive Management created
+        content:
+          application/json:
+            schema:
+                $ref: '#/components/schemas/createExecuetiveManagementResponse'
+    deleteExecueteManagement:
+      description: Execuetive Management deleted successfully
+    BadRequest:
+      description: BadRequest
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    NotFound:
+      description: NotFound
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    TooManyRequests:
+      description: TooManyRequests
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    InternalServerError:
+      description: InternalServerError
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
